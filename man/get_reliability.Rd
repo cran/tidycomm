@@ -25,7 +25,7 @@ See \code{\link[MBESS]{ci.reliability}}}
 See \code{\link[MBESS]{ci.reliability}}}
 
 \item{progress}{Show progress for reliability estimate computation. Useful
-if using computionally intense computations (e. g., many bootstrapping
+if using computationally intense computations (e. g., many bootstrapping
 samples) and many index variables.}
 }
 \value{
@@ -42,7 +42,5 @@ WoJ \%>\%
 }
 \seealso{
 \code{\link[=add_index]{add_index()}} to create index variables
-
-Other reliability: \code{\link{compute_reliability}}
 }
 \concept{reliability}

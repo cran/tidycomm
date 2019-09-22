@@ -27,7 +27,7 @@ Test results will be reported via message(). Defaults to \code{FALSE}.}
 a \link[tibble:tibble-package]{tibble}
 }
 \description{
-Computes contigency table for one independent (column) variable and one or
+Computes contingency table for one independent (column) variable and one or
 more dependent (row) variables.
 }
 \examples{
@@ -36,7 +36,6 @@ WoJ \%>\% crosstab(reach, employment, add_total = TRUE, percentages = TRUE, chi_
 
 }
 \seealso{
-Other categorical: \code{\link{cramer_V}},
-  \code{\link{tab_frequencies}}
+Other categorical: \code{\link{tab_frequencies}}
 }
 \concept{categorical}
