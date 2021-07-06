@@ -67,7 +67,10 @@ compute_aov <- function(test_var, data, group_var, descriptives, post_hoc) {
   group_var_string <- as_label(enquo(group_var))
   test_var_string <- as_label(enquo(test_var))
 
-  formula <- as.formula(paste(test_var_string, group_var_string, sep = " ~ "))
+  formula <- as.formula(paste("`", test_var_string, "`",
+                              " ~ ",
+                              "`", group_var_string, "`",
+                              sep = ""))
 
   aov_model <- aov(formula, data)
 
@@ -90,7 +93,9 @@ compute_aov <- function(test_var, data, group_var, descriptives, post_hoc) {
       tidyr::gather("stat", "val", .data$M, .data$SD)
 
     desc_df <- desc_df %>%
-      dplyr::mutate(order_var = dplyr::group_indices(desc_df, {{ group_var }})) %>%
+      dplyr::group_by({{ group_var }}) %>%
+      dplyr::mutate(order_var = dplyr::cur_group_id()) %>%
+      dplyr::ungroup() %>%
       tidyr::unite("name", .data$order_var, .data$stat, {{ group_var }}) %>%
       dplyr::mutate(name = stringr::str_replace_all(.data$name, " ", "_")) %>%
       tidyr::spread(.data$name, .data$val) %>%

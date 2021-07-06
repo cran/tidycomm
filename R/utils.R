@@ -13,7 +13,7 @@
 ## @return Variables as symbols
 ##
 ## @keywords internal
-grab_vars <- function(data, vars, alternative = "numeric") {
+grab_vars <- function(data, vars, alternative = "numeric", exclude_vars = NULL) {
   if (length(vars) == 0) {
     if (alternative == "numeric") {
       vars <- data %>%
@@ -23,9 +23,20 @@ grab_vars <- function(data, vars, alternative = "numeric") {
         syms()
     }
 
+    if (alternative == "categorical") {
+
+      vars <- data %>%
+        dplyr::ungroup() %>%
+        dplyr::select(-dplyr::group_vars(data)) %>%
+        dplyr::select_if(function(col) is.factor(col) | is.character(col)) %>%
+        names() %>%
+        syms()
+    }
+
     if (alternative == "all") {
       vars <- data %>%
         dplyr::ungroup() %>%
+        dplyr::select(-exclude_vars) %>%
         names() %>%
         syms()
     }
@@ -33,6 +44,12 @@ grab_vars <- function(data, vars, alternative = "numeric") {
     if (alternative == "none") {
       return(vars)
     }
+  } else {
+    vars <- data %>%
+      dplyr::ungroup() %>%
+      dplyr::select(!!!vars, -exclude_vars) %>%
+      names() %>%
+      syms()
   }
   return(vars)
 }

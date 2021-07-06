@@ -51,8 +51,18 @@ icr_agreement <- function(ucm) {
 ## Checks if all values in a vector are the same
 ##
 ## @param x A vector
+## @param tol A numeric indicating the tolerance of the check
 ##
 ## @keywords internal
-check_equal <- function(x) {
-  length(x) - 1 == sum(duplicated(x))
+check_equal <- function(x, tol = NULL) {
+
+  if (missing(tol)) {
+    tol <- 0
+  }
+
+  if (is.numeric(x)) {
+    abs(max(x) - min(x)) <= tol + 1e-12
+  } else {
+    length(x) - 1 == sum(duplicated(x))
+  }
 }

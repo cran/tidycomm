@@ -2,7 +2,7 @@
 % Please edit documentation in R/describe.R
 \name{describe}
 \alias{describe}
-\title{Describe variables}
+\title{Describe numeric variables}
 \usage{
 describe(data, ..., na.rm = TRUE)
 }
@@ -19,7 +19,7 @@ before the computation proceeds. Defaults to \code{TRUE}.}
 a \link[tibble:tibble-package]{tibble}
 }
 \description{
-Describe variables by several measures of
+Describe numeric variables by several measures of
 central tendency and variability. If no variables are specified,
 all numeric (integer or double) variables are described.
 }
@@ -27,5 +27,9 @@ all numeric (integer or double) variables are described.
 iris \%>\% describe()
 mtcars \%>\% describe(mpg, am, cyl)
 
+}
+\seealso{
+Other descriptives: 
+\code{\link{describe_cat}()}
 }
 \concept{descriptives}
