@@ -1,8 +1,9 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(rmarkdown.html_vignette.check_title = FALSE)
 
 ## ----setup, message = FALSE, warning = FALSE, include = FALSE-----------------
 library(tidycomm)
@@ -25,6 +26,20 @@ WoJ %>%
 
 ## -----------------------------------------------------------------------------
 WoJ %>% 
+  describe() %>% 
+  visualize()
+
+## -----------------------------------------------------------------------------
+WoJ %>% 
+  tab_percentiles()
+
+## -----------------------------------------------------------------------------
+WoJ %>% 
+  tab_percentiles(trust_parties) %>% 
+  visualize()
+
+## -----------------------------------------------------------------------------
+WoJ %>% 
   describe_cat(reach, employment, temp_contract)
 
 ## -----------------------------------------------------------------------------
@@ -35,6 +50,11 @@ WoJ %>%
 WoJ %>% 
   dplyr::group_by(reach) %>% 
   describe_cat(country, employment)
+
+## -----------------------------------------------------------------------------
+WoJ %>% 
+  describe_cat() %>% 
+  visualize()
 
 ## -----------------------------------------------------------------------------
 WoJ %>%  
@@ -48,4 +68,9 @@ WoJ %>%
 WoJ %>% 
   dplyr::group_by(country) %>%  
   tab_frequencies(employment)
+
+## -----------------------------------------------------------------------------
+WoJ %>% 
+  tab_frequencies(country) %>% 
+  visualize()
 
