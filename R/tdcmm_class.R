@@ -15,6 +15,7 @@
 #'
 #' @name tdcmm-class
 #' @aliases tdcmm tdcmm-class
+#' @keywords internal
 NULL
 
 # Constructors ----
@@ -32,9 +33,9 @@ NULL
 #' `tdcmm` objects in `tidycomm` are further subclassed with individual classes
 #' handling visualization and printing per "output" type.
 #'
-#' @param x A [tibble][tibble::tibble-package].
+#' @param x A [tibble][tibble::tibble].
 #' @param func Function name called that produced this model.
-#' @param data The [tibble] that served as input to the function.
+#' @param data The [tibble][tibble::tibble] that served as input to the function.
 #' @param model A list of model object(s) used in preparation of the output.
 #'   Defaults to `NULL`. A single model should be wrapped in a list of length
 #'   `1`.
@@ -42,6 +43,7 @@ NULL
 #'   output. Defaults to `NULL`.
 #' @param params A named list of parameters originally passed to the call.
 #'   Defaults to an empty list.
+#' @keywords internal
 new_tdcmm <- function(x, func, data, model = NULL, checks = NULL, params = list()) {
   stopifnot(tibble::is_tibble(x))
   stopifnot(func != "")
@@ -81,6 +83,7 @@ is_tdcmm <- function(x) {
 #' @returns A model object or a list of model objects
 #'
 #' @export
+#' @keywords internal
 model <- function(x, ...) {
   UseMethod("model")
 }
@@ -101,7 +104,7 @@ model.tdcmm <- function(x, ...) {
 
 #' Visualize tidycomm output
 #'
-#' Returns [ggplot2] visualization appropriate to respective `tdcmm` model
+#' Returns [ggplot][ggplot2::ggplot] visualization appropriate to respective `tdcmm` model
 #' (see list below). Returns `NULL` (and a warning) if no visualization has
 #' been implemented for the particular model.
 #'
@@ -174,9 +177,9 @@ model.tdcmm <- function(x, ...) {
 #'   or there might be more than 5 noteworthy outliers in this model; interpret
 #'   with care
 #'
-#' Note that the returned [ggplot2] object can be modified easily by appending
+#' Note that the returned [ggplot][ggplot2::ggplot] object can be modified easily by appending
 #' or overwriting individual geom's or scale's. See the examples below and the
-#' documentation of [ggplot2].
+#' documentation of [ggplot][ggplot2::ggplot].
 #'
 #' @param x `tdcmm` output
 #' @param ... other arguments
@@ -187,9 +190,9 @@ model.tdcmm <- function(x, ...) {
 #' corresponding `main_contrast_1` (the color of text to write on top of the
 #' main color) and a corresponding `main_contrasts`, the `main_size` (for
 #' lines), a `comparison_linetype`, `comparison_color`, and `comparison_size`
-#' for all lines that act as comparative lines, and a [ggplot2] `theme`
+#' for all lines that act as comparative lines, and a [`ggplot2::theme`][ggplot2::theme]
 #'
-#' @return A [ggplot2] object
+#' @return A [ggplot][ggplot2::ggplot] object
 #'
 #' @family visualize
 #'

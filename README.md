@@ -6,12 +6,12 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental-1)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tidycomm)](https://CRAN.R-project.org/package=tidycomm)
 [![Codecov test
-coverage](https://codecov.io/gh/joon-e/tidycomm/branch/master/graph/badge.svg)](https://app.codecov.io/gh/joon-e/tidycomm?branch=master)
-[![R-CMD-check](https://github.com/joon-e/tidycomm/workflows/R-CMD-check/badge.svg)](https://github.com/joon-e/tidycomm/actions)
+coverage](https://app.codecov.io/gh/tidycomm/tidycomm/branch/master/graph/badge.svg)](https://app.codecov.io/gh/tidycomm/tidycomm?branch=master)
+[![R-CMD-check](https://github.com/tidycomm/tidycomm/workflows/R-CMD-check/badge.svg)](https://github.com/tidycomm/tidycomm/actions)
 <!-- badges: end -->
 
 Tidycomm provides convenience functions for common tasks in
@@ -19,8 +19,8 @@ communication research. All functions follow the style and syntax of the
 [tidyverse](https://www.tidyverse.org/).
 
 Currently, tidycomm includes functions for various methods of univariate
-and bivariate data description and analysis, data modification, and
-intercoder reliability tests.
+and bivariate data description and analysis, data modification,
+visualization, and intercoder reliability tests.
 
 ## Installation
 
@@ -33,7 +33,8 @@ install.packages("tidycomm")
 Or install the most recent development version of tidycomm with:
 
 ``` r
-remotes::install_github("joon-e/tidycomm")
+# install.packages("pak")
+pak::pak("tidycomm/tidycomm")
 ```
 
 ## Usage
@@ -69,7 +70,7 @@ compute descriptive statistics for all numeric variables in the data,
 just call `describe()` without further arguments:
 
 ``` r
-WoJ %>% 
+WoJ %>%
   describe()
 #> # A tibble: 11 × 15
 #>    Variable           N Missing     M     SD   Min   Q25   Mdn   Q75   Max Range
@@ -106,9 +107,34 @@ fbposts %>% # Facebook post codings sample data
 #> # ℹ 1 more variable: Krippendorffs_Alpha <dbl>
 ```
 
-For detailed examples of all available functions, see the [documentation
-website](https://joon-e.github.io/tidycomm/) or read the vignettes:
+Almost all functions also come with integrated visualizations. So to
+visualize your results you can easily just append `visualize()` to the
+end of your commands:
 
 ``` r
-browseVignettes("tidycomm")
+snscomments %>% # experimental social-media-post perception sample data
+  dplyr::filter(group == 3) %>%
+  t_test(
+    gender,
+    medium_evaluation,
+    article_evaluation,
+    comments_quality,
+    comments_valence
+  ) %>%
+  visualize()
 ```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+
+For detailed examples, see the following articles:
+
+- [Univariate analysis of continuous and categorical
+  variables](https://tidycomm.github.io/tidycomm/articles/v01_univariate.html)
+- [Bivariate analysis of continuous and/or categorical
+  variables](https://tidycomm.github.io/tidycomm/articles/v02_bivariate.html)
+- [Adding indices and computing reliability
+  estimates](https://tidycomm.github.io/tidycomm/articles/v03_reliability.html)
+- [Intercoder reliability
+  tests](https://tidycomm.github.io/tidycomm/articles/v04_icr.html)
+- [Modification of
+  scales](https://tidycomm.github.io/tidycomm/articles/v05_scales.html)
